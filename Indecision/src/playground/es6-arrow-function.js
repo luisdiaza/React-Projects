@@ -8,6 +8,7 @@
 //     return x * x;
 // };
 
+//Expression syntax
 // const squareArrow = (x) => x * x;
 //
 // console.log(squareArrow(8));

@@ -1,28 +1,38 @@
 'use strict';
 
-//ES5 function
-// const square =  function (x) {
-//     return x * x;
+// const add = function (a,b) {
+//     return a + b;
 // }
-
-//ES6 Arrow functions
-// const squareArrow = (x) => {
-//     return x * x;
-// };
-
-// const squareArrow = (x) => x * x;
 //
-// console.log(squareArrow(8));
+// console.log(add(55,1));
 
-//Verbose syntax
-// const getFirstName = (fullName) => {
-//     return fullName.split(' ')[0];
-// }
+//this keyword no longer bound
 
+var user = {
+    name: 'Luis',
+    cities: ['New York', 'North Plainfield', 'Summit'],
+    printPlacesLived: function printPlacesLived() {
+        var _this = this;
 
-//Expression syntax
-var getFirstName = function getFirstName(fullName) {
-  return fullName.split(' ')[0];
+        console.log(this.name);
+        // console.log(this.cities);
+
+        return this.cities.map(function (city) {
+            return _this.name + ' has lived in ' + city;
+        });
+    }
 };
+console.log(user.printPlacesLived());
 
-console.log(getFirstName('Luis Diaz'));
+var multiplier = {
+    numbers: [10, 20, 30],
+    multiplyBy: 3,
+    multiply: function multiply() {
+        var _this2 = this;
+
+        return this.numbers.map(function (number) {
+            return number * _this2.multiplyBy;
+        });
+    }
+};
+console.log(multiplier.multiply());
