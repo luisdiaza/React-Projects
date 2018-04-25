@@ -1,5 +1,3 @@
-'use strict';
-
 //ES5 function
 // const square =  function (x) {
 //     return x * x;
@@ -21,8 +19,6 @@
 
 
 //Expression syntax
-var getFirstName = function getFirstName(fullName) {
-  return fullName.split(' ')[0];
-};
+const getFirstName = (fullName) => fullName.split(' ')[0];
 
 console.log(getFirstName('Luis Diaz'));
