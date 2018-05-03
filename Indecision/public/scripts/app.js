@@ -26,56 +26,32 @@ React.createElement(
         'p',
         null,
         object.options.length > 0 ? 'Here are your options' : 'No options'
+    ),
+    React.createElement(
+        'ol',
+        null,
+        React.createElement(
+            'li',
+            null,
+            'Item one'
+        ),
+        React.createElement(
+            'li',
+            null,
+            'Item two'
+        )
+    ),
+    React.createElement(
+        'form',
+        { onSubmit: onForm },
+        React.createElement('input', { type: 'text', name: 'option' }),
+        React.createElement(
+            'button',
+            null,
+            'Add Option'
+        )
     )
 );
 
-var count = 0;
-var addOne = function addOne() {
-    //a variable, named addOne, set to a nameless function with no parameters that console logs stuff out
-    count++;
-    renderCounterApp();
-};
-
-var minusOne = function minusOne() {
-    count--;
-    renderCounterApp();
-};
-
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
-};
-
 var app = document.getElementById('app');
-
-var renderCounterApp = function renderCounterApp() {
-    var templateTwo = React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h1',
-            null,
-            'Count: ',
-            count
-        ),
-        React.createElement(
-            'button',
-            { onClick: addOne },
-            '+1'
-        ),
-        React.createElement(
-            'button',
-            { onClick: minusOne },
-            '-1'
-        ),
-        React.createElement(
-            'button',
-            { onClick: reset },
-            'Reset'
-        )
-    );
-
-    ReactDOM.render(templateTwo, app);
-};
-
-renderCounterApp();
+ReactDOM.render(template, app);
