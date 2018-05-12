@@ -29,9 +29,15 @@ const onRemoveAll = () => {
     renderFunction();
 };
 
+const onMakeDecision = () => {
+    const randomNum = Math.floor(Math.random() * object.options.length);
+    const option = object.options[randomNum];
+    alert(option);
+    renderFunction();
+};
+
 const app =  document.getElementById('app');
 
-const numbers = [55, 101, 1000];
 
 const renderFunction = () => {
     //JSX - JavaScript XML
@@ -40,7 +46,7 @@ const renderFunction = () => {
             <h1>{object.title}</h1>
             {object.subtitle && <p>{object.subtitle}</p>}
             <p>{object.options.length > 0 ? 'Here are your options' : 'No options' }</p>
-            <p>{object.options.length}</p>
+            <button disabled = {object.options.length === 0} onClick= {onMakeDecision}>What Should I Do?</button>
             <button onClick = {onRemoveAll}>Remove All</button>
             <ol>
                 {
@@ -56,7 +62,8 @@ const renderFunction = () => {
 
         </div>
     );
-    ReactDOM.render(template,app);
+    ReactDOM.render(template,app);//renders the intial application
 };
 
-renderFunction();//renders the intial application
+renderFunction();//React doesn't render anything to the screen until ReactDom.render is called
+                //When data changes, ReactDOM.render must be re-run for data to actually to update on screen

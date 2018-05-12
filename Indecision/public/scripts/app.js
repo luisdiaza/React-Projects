@@ -32,9 +32,14 @@ var onRemoveAll = function onRemoveAll() {
     renderFunction();
 };
 
-var app = document.getElementById('app');
+var onMakeDecision = function onMakeDecision() {
+    var randomNum = Math.floor(Math.random() * object.options.length);
+    var option = object.options[randomNum];
+    alert(option);
+    renderFunction();
+};
 
-var numbers = [55, 101, 1000];
+var app = document.getElementById('app');
 
 var renderFunction = function renderFunction() {
     //JSX - JavaScript XML
@@ -58,9 +63,9 @@ var renderFunction = function renderFunction() {
             object.options.length > 0 ? 'Here are your options' : 'No options'
         ),
         React.createElement(
-            'p',
-            null,
-            object.options.length
+            'button',
+            { disabled: object.options.length === 0, onClick: onMakeDecision },
+            'What Should I Do?'
         ),
         React.createElement(
             'button',
@@ -90,7 +95,8 @@ var renderFunction = function renderFunction() {
             )
         )
     );
-    ReactDOM.render(template, app);
+    ReactDOM.render(template, app); //renders the intial application
 };
 
-renderFunction(); //renders the intial application
+renderFunction(); //React doesn't render anything to the screen until ReactDom.render is called
+//When data changes, ReactDOM.render must be re-run for data to actually to update on screen
