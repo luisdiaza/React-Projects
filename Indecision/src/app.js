@@ -14,6 +14,7 @@ const onFormSubmit = (e) => {
     /*
         .target: points to the the element that the event started on. In this case, it is forms.
         .elements: contains a list of all elements indexed by name
+        .option: located within form
     */
 
     if (option) { //Remember, an if statement executes if the condition is truthy. So if there is content inside option, the if statement will run
@@ -30,6 +31,8 @@ const onRemoveAll = () => {
 
 const app =  document.getElementById('app');
 
+const numbers = [55, 101, 1000];
+
 const renderFunction = () => {
     //JSX - JavaScript XML
     const template = ( //These are objects
@@ -40,8 +43,11 @@ const renderFunction = () => {
             <p>{object.options.length}</p>
             <button onClick = {onRemoveAll}>Remove All</button>
             <ol>
-                <li>Item one</li>
-                <li>Item two</li>
+                {
+                    object.options.map((option) => {
+                        return <li key={option}> {option}</li>;
+                    })
+                }
             </ol>
             <form onSubmit={onFormSubmit}>
                 <input type="text" name="option" ></input>

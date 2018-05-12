@@ -16,6 +16,7 @@ var onFormSubmit = function onFormSubmit(e) {
     /*
         .target: points to the the element that the event started on. In this case, it is forms.
         .elements: contains a list of all elements indexed by name
+        .option: located within form
     */
 
     if (option) {
@@ -32,6 +33,8 @@ var onRemoveAll = function onRemoveAll() {
 };
 
 var app = document.getElementById('app');
+
+var numbers = [55, 101, 1000];
 
 var renderFunction = function renderFunction() {
     //JSX - JavaScript XML
@@ -67,16 +70,14 @@ var renderFunction = function renderFunction() {
         React.createElement(
             'ol',
             null,
-            React.createElement(
-                'li',
-                null,
-                'Item one'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'Item two'
-            )
+            object.options.map(function (option) {
+                return React.createElement(
+                    'li',
+                    { key: option },
+                    ' ',
+                    option
+                );
+            })
         ),
         React.createElement(
             'form',
