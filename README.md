@@ -1,6 +1,6 @@
 # **Houses two React projects.**
 
-- **Indecision:**
+- **Indecision:** Feeling indecisive? Put your life in the hands of a computer, and let it decide what to do for you!  
 
 - **Expensify:**
 
