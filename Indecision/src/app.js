@@ -31,7 +31,7 @@ const onRemoveAll = () => {
 
 const onMakeDecision = () => {
     const randomNum = Math.floor(Math.random() * object.options.length);
-    const option = object.options[randomNum];
+    const option = object.options[randomNum];//this second const option variable is allowed to exist because it is function scope and not global
     alert(option);
     renderFunction();
 };
@@ -67,3 +67,4 @@ const renderFunction = () => {
 
 renderFunction();//React doesn't render anything to the screen until ReactDom.render is called
                 //When data changes, ReactDOM.render must be re-run for data to actually to update on screen
+                //function doesn't run unless called
