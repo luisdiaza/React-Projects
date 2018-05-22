@@ -81,6 +81,11 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: 'handlePick',
+        value: function handlePick() {
+            alert('handlePick');
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -88,7 +93,7 @@ var Action = function (_React$Component3) {
                 null,
                 React.createElement(
                     'button',
-                    null,
+                    { onClick: this.handlePick },
                     'What Should I Do?'
                 )
             );
@@ -108,20 +113,31 @@ var Options = function (_React$Component4) {
     }
 
     _createClass(Options, [{
+        key: 'handleRemoveAll',
+        value: function handleRemoveAll() {
+            alert('handleRemoveAll');
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
-                //renders a new p tag for each option using map function (set text, set key)
+                React.createElement(
+                    'button',
+                    { onClick: this.handleRemoveAll },
+                    'Remove All'
+                ),
                 this.props.options.map(function (option) {
                     return React.createElement(Option, { key: option, optionText: option });
-                }) //option is the individual item in array
-                //gets called one time for each element in array
-                //map takes an array and converts each item in some way
-                //arrays have text values/comments that lets React determine what to rerender
-                //However, when you have JSX inside of array React does not have those text values/comments
-                //to fix this, attach a key and text prop to each element
+                })
+
+                /* renders a new p tag for each option using map function (set text, set key)
+                 option is the individual item in array
+                 map gets called one time for each element in array and converts each item in some way
+                 arrays have text values/comments that lets React determine what to rerender
+                 However, when you have JSX inside of array React does not have those text values/comments
+                 to fix this, attach a key and text prop (optionText) to each element */
 
             );
         }
@@ -164,15 +180,31 @@ var AddOption = function (_React$Component6) {
     }
 
     _createClass(AddOption, [{
+        key: 'handleAddOption',
+        value: function handleAddOption(e) {
+            e.preventDefault();
+
+            var option = e.target.elements.option.value.trim();
+
+            if (option) {
+                alert('handleAddOption');
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
                 React.createElement(
-                    'p',
-                    null,
-                    'AddOption component here'
+                    'form',
+                    { onSubmit: this.handleAddOption },
+                    React.createElement('input', { type: 'text', name: 'option' }),
+                    React.createElement(
+                        'button',
+                        null,
+                        'Add Option'
+                    )
                 )
             );
         }

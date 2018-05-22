@@ -28,27 +28,35 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
+    handlePick() {
+        alert('handlePick');
+    }
     render() {
         return (
             <div>
-                <button>What Should I Do?</button>
+                <button onClick={this.handlePick}>What Should I Do?</button>
             </div>
         );
     }
 }
 
 class Options extends React.Component {
+    handleRemoveAll() {
+        alert('handleRemoveAll');
+    }
     render() {
         return (
             <div>
-                {//renders a new p tag for each option using map function (set text, set key)
-                    this.props.options.map((option) => <Option key={option} optionText={option}/>)//option is the individual item in array
-                    //gets called one time for each element in array
-                    //map takes an array and converts each item in some way
-                    //arrays have text values/comments that lets React determine what to rerender
-                    //However, when you have JSX inside of array React does not have those text values/comments
-                    //to fix this, attach a key and text prop to each element
+                <button onClick={this.handleRemoveAll}>Remove All</button>
+                {
+                    this.props.options.map((option) => <Option key={option} optionText={option}/>)
 
+                    /* renders a new p tag for each option using map function (set text, set key)
+                     option is the individual item in array
+                     map gets called one time for each element in array and converts each item in some way
+                     arrays have text values/comments that lets React determine what to rerender
+                     However, when you have JSX inside of array React does not have those text values/comments
+                     to fix this, attach a key and text prop (optionText) to each element */
                 }
             </div>
         );
@@ -66,10 +74,22 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+    handleAddOption(e) {
+        e.preventDefault();
+
+        const option = e.target.elements.option.value.trim();
+
+        if (option){
+            alert('handleAddOption');
+        }
+    }
     render() {
         return (
             <div>
-                <p>AddOption component here</p>
+                <form onSubmit={this.handleAddOption}>
+                    <input type="text" name="option" ></input>
+                    <button>Add Option</button>
+                </form>
             </div>
         )
     }
