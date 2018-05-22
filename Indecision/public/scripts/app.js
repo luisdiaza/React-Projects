@@ -20,12 +20,17 @@ var IndecisionApp = function (_React$Component) {
     _createClass(IndecisionApp, [{
         key: 'render',
         value: function render() {
+
+            var title = 'Indecision';
+            var subtitle = 'Put your life in the hands of a computer';
+            var options = ['Thing one', 'Thing two', 'thing four'];
+
             return React.createElement(
                 'div',
                 null,
-                React.createElement(Header, null),
+                React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, null),
-                React.createElement(Options, null),
+                React.createElement(Options, { options: options }),
                 React.createElement(AddOption, null)
             );
         }
@@ -52,12 +57,12 @@ var Header = function (_React$Component2) {
                 React.createElement(
                     'h1',
                     null,
-                    'Indecision'
+                    this.props.title
                 ),
                 React.createElement(
                     'h2',
                     null,
-                    'Put your life in the hands of a computer'
+                    this.props.subtitle
                 )
             );
         }
@@ -108,7 +113,16 @@ var Options = function (_React$Component4) {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(Option, null)
+                //renders a new p tag for each option using map function (set text, set key)
+                this.props.options.map(function (option) {
+                    return React.createElement(Option, { key: option, optionText: option });
+                }) //option is the individual item in array
+                //gets called one time for each element in array
+                //map takes an array and converts each item in some way
+                //arrays have text values/comments that lets React determine what to rerender
+                //However, when you have JSX inside of array React does not have those text values/comments
+                //to fix this, attach a key and text prop to each element
+
             );
         }
     }]);
@@ -131,11 +145,8 @@ var Option = function (_React$Component5) {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'p',
-                    null,
-                    'Option component here'
-                )
+                'Option: ',
+                this.props.optionText
             );
         }
     }]);
