@@ -44,7 +44,7 @@ const renderFunction = () => {
     const template = ( //These are objects
         <div>
             <h1>{object.title}</h1>
-            {object.subtitle && <p>{object.subtitle}</p>}
+            {object.subtitle && <p>{object.subtitle}</p>} {/* only render the subtitle and p tag if the subtitle exists using logical and operator*/}
             <p>{object.options.length > 0 ? 'Here are your options' : 'No options' }</p>
             <button disabled = {object.options.length === 0} onClick= {onMakeDecision}>What Should I Do?</button>
             <button onClick = {onRemoveAll}>Remove All</button>
