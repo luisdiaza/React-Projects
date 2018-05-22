@@ -1,70 +1,51 @@
-console.log('App.js is running!');
-
-const object = {
-    title: 'Dragonball',
-    subtitle: 'Super',
-    options: []
+class Header extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>Indecision</h1>
+                <h2>Put your life in the hands of a computer</h2>
+            </div>
+        );
+    }
 }
 
-const onFormSubmit = (e) => {
-    e.preventDefault();
-
-    const option = e.target.elements.option.value;
-
-    /*
-        .target: points to the the element that the event started on. In this case, it is forms.
-        .elements: contains a list of all elements indexed by name
-        .option: located within form
-    */
-
-    if (option) { //Remember, an if statement executes if the condition is truthy. So if there is content inside option, the if statement will run
-        object.options.push(option);
-        e.target.elements.option.value = '';
-        renderFunction();
+class Action extends React.Component {
+    render() {
+        return (
+            <div>
+                <button>What Should I Do?</button>
+            </div>
+        );
     }
-};
+}
 
-const onRemoveAll = () => {
-    object.options = [];
-    renderFunction();
-};
+class Options extends React.Component {
+    render() {
+        return (
+            <div>
+                <p>Options component here</p>
+            </div>
+        );
+    }
+}
 
-const onMakeDecision = () => {
-    const randomNum = Math.floor(Math.random() * object.options.length);
-    const option = object.options[randomNum];//this second const option variable is allowed to exist because it is function scope and not global
-    alert(option);
-    renderFunction();
-};
+class AddOption extends React.Component {
+    render() {
+        return (
+            <div>
+                <p>AddOption component here</p>
+            </div>
+        )
+    }
+}
 
-const app =  document.getElementById('app');
+const jsx = (
+    <div>
+        <Header />
+        <Action />
+        <Options />
+        <AddOption />
+    </div>
+);
 
-
-const renderFunction = () => {
-    //JSX - JavaScript XML
-    const template = ( //These are objects
-        <div>
-            <h1>{object.title}</h1>
-            {object.subtitle && <p>{object.subtitle}</p>} {/* only render the subtitle and p tag if the subtitle exists using logical and operator*/}
-            <p>{object.options.length > 0 ? 'Here are your options' : 'No options' }</p>
-            <button disabled = {object.options.length === 0} onClick= {onMakeDecision}>What Should I Do?</button>
-            <button onClick = {onRemoveAll}>Remove All</button>
-            <ol>
-                {
-                    object.options.map((option) => {
-                        return <li key={option}> {option}</li>;
-                    })
-                }
-            </ol>
-            <form onSubmit={onFormSubmit}>
-                <input type="text" name="option" ></input>
-                <button>Add Option</button>
-            </form>
-
-        </div>
-    );
-    ReactDOM.render(template,app);//renders the intial application
-};
-
-renderFunction();//React doesn't render anything to the screen until ReactDom.render is called
-                //When data changes, ReactDOM.render must be re-run for data to actually to update on screen
-                //function doesn't run unless called
+ReactDOM.render(jsx, document.getElementById('app'));
