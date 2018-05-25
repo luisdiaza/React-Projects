@@ -43,7 +43,7 @@ class IndecisionApp extends React.Component {
 
         return (
             <div>
-                <Header title = {title} subtitle = {subtitle}/> {/*these are props that allow components to have access to data found in this parent component*/}
+                <Header subtitle = {subtitle}/> {/*these are props that allow components to have access to data found in this parent component*/}
                 <Action
                     hasOptions = {this.state.options.length > 0} /*returns true if the left operand is greater than the right*/
                     handlePick = {this.handlePick}
@@ -64,9 +64,13 @@ const Header = (props) => {
         return (
             <div>
                 <h1>{props.title}</h1>
-                <h2>{props.subtitle}</h2>
+                {props.subtitle && <h2>{props.subtitle}</h2>}
             </div>
         );
+};
+
+Header.defaultProps = {
+    title: 'Indecision'
 };
 
 const Action = (props) => {
