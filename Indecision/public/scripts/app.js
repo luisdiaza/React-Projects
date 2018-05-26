@@ -21,6 +21,7 @@ var IndecisionApp = function (_React$Component) {
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
+        _this.handleDeleteIndividualOption = _this.handleDeleteIndividualOption.bind(_this);
         _this.state = { //define state and set it equal to object
             options: []
         };
@@ -34,6 +35,23 @@ var IndecisionApp = function (_React$Component) {
             this.setState(function () {
                 return {
                     options: []
+                };
+            });
+        }
+    }, {
+        key: 'handleDeleteIndividualOption',
+        value: function handleDeleteIndividualOption(optionToRemove) {
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.filter(function (option) {
+                        /* filter method takes a callback function that return true to keep the elements within an array.
+                           Returns false to remove an element within an array. It then returns a brand new array with only
+                           the elements you want to keep
+                        */
+                        return optionToRemove !== option;
+                        /*Looks through every option user has submitted.
+                        Any option that is not the one currently being clicked to be removed, will not be deleted. */
+                    })
                 };
             });
         }
@@ -78,7 +96,8 @@ var IndecisionApp = function (_React$Component) {
                 }),
                 React.createElement(Options, {
                     options: this.state.options,
-                    handleDeleteOptions: this.handleDeleteOptions
+                    handleDeleteOptions: this.handleDeleteOptions,
+                    handleDeleteIndividualOption: this.handleDeleteIndividualOption
                 }),
                 React.createElement(AddOption, {
                     handleAddOption: this.handleAddOption
@@ -134,9 +153,6 @@ var Options = function Options(props) {
             { onClick: props.handleDeleteOptions },
             'Remove All'
         ),
-        props.options.map(function (option) {
-            return React.createElement(Option, { key: option, optionText: option });
-        })
 
         /* renders a new p tag for each option using map function (set text, set key)
          option is the individual item in array
@@ -144,7 +160,13 @@ var Options = function Options(props) {
          arrays have text values/comments that lets React determine what to rerender
          However, when you have JSX inside of array React does not have those text values/comments
          to fix this, attach a key and text prop (optionText) to each element */
-
+        props.options.map(function (option) {
+            return React.createElement(Option, {
+                key: option,
+                optionText: option,
+                handleDeleteIndividualOption: props.handleDeleteIndividualOption
+            });
+        })
     );
 };
 
@@ -153,7 +175,17 @@ var Option = function Option(props) {
         'div',
         null,
         'Option: ',
-        props.optionText
+        props.optionText,
+        React.createElement(
+            'button',
+            {
+                //arrow function gets called with e argument when button gets clicked. This will allow us to properly delete the individual object.
+                onClick: function onClick(e) {
+                    props.handleDeleteIndividualOption(props.optionText);
+                }
+            },
+            'Remove'
+        )
     );
 };
 
@@ -169,7 +201,6 @@ var AddOption = function (_React$Component2) {
         _this2.state = {
             error: undefined
         };
-
         return _this2;
     }
 
