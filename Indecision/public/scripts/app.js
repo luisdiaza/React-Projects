@@ -29,6 +29,31 @@ var IndecisionApp = function (_React$Component) {
     }
 
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+
+                if (options) {
+                    this.setState(function () {
+                        return { options: options };
+                    });
+                }
+            } catch (e) {
+                //do nothing at all
+            }
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (prevState.options.length !== this.state.options.length) {
+                //checks to see if old state object has a different length than current one
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+            }
+        }
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             //completely wipes options array
@@ -125,7 +150,6 @@ var Header = function Header(props) {
         )
     );
 };
-
 Header.defaultProps = {
     title: 'Indecision'
 };
@@ -152,6 +176,11 @@ var Options = function Options(props) {
             'button',
             { onClick: props.handleDeleteOptions },
             'Remove All'
+        ),
+        props.options.length == 0 && React.createElement(
+            'p',
+            null,
+            'Please add an option to get started'
         ),
 
         /* renders a new p tag for each option using map function (set text, set key)
@@ -218,6 +247,10 @@ var AddOption = function (_React$Component2) {
                     error: error
                 };
             });
+
+            if (!error) {
+                e.target.elements.option.value = ''; //ensures that when valid data is submitted, input gets wiped
+            }
         }
     }, {
         key: 'render',

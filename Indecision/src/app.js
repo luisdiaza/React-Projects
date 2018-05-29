@@ -9,12 +9,30 @@ class IndecisionApp extends React.Component {
             options:[]
         }
     }
+    componentDidMount() {
+        try {
+            const json = localStorage.getItem('options');
+            const options = JSON.parse(json);
+
+            if (options) {
+                this.setState(() => ({ options: options }))
+            }
+        }
+        catch (e) {
+            //do nothing at all
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.options.length !== this.state.options.length){//checks to see if old state object has a different length than current one
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+        }
+    }
     handleDeleteOptions() { //completely wipes options array
         this.setState(() => ({
             options: []
         }));
     }
-
     handleDeleteIndividualOption(optionToRemove) {
         this.setState ((prevState) => ({
             options: prevState.options.filter((option) => {
@@ -28,13 +46,11 @@ class IndecisionApp extends React.Component {
             })
         }));
     }
-
     handlePick() {
         const randomNum = Math.floor(Math.random() * this.state.options.length);
         const option = this.state.options[randomNum];//this second const option variable is allowed to exist because it is function scope and not global
         alert(option);
     }
-
     handleAddOption(option) {
         if (!option) { //only runs if there is an empty string
             return 'Enter valid value to add item'
@@ -47,7 +63,6 @@ class IndecisionApp extends React.Component {
             options: prevState.options.concat(option)
         }));
     }
-
     render() {
         const title = 'Indecision';
         const subtitle = 'Put your life in the hands of a computer';
@@ -80,7 +95,6 @@ const Header = (props) => {
             </div>
         );
 };
-
 Header.defaultProps = {
     title: 'Indecision'
 };
@@ -101,6 +115,7 @@ const Action = (props) => {
     return (
         <div>
             <button onClick={props.handleDeleteOptions}>Remove All</button>
+            {props.options.length == 0 && <p>Please add an option to get started</p>}
             {
                 /* renders a new p tag for each option using map function (set text, set key)
                  option is the individual item in array
@@ -144,7 +159,6 @@ class AddOption extends React.Component {
             error: undefined
         }
     }
-
     handleAddOption(e) {//best to keep this function in this component
         e.preventDefault();
 
@@ -154,6 +168,10 @@ class AddOption extends React.Component {
         this.setState (() => ({
             error: error
         }));
+
+        if (!error) {
+            e.target.elements.option.value = ''; //ensures that when valid data is submitted, input gets wiped
+        }
 
     }
     render() {
